@@ -1,0 +1,296 @@
+
+
+
+import turtle
+import random
+
+#  SCREEN SETUP 
+
+screen = turtle.Screen()
+screen.setup(900, 700)
+screen.bgcolor("#182630")
+screen.title("The Last of Us - Fireflies")
+screen.tracer(0)
+
+
+t = turtle.Turtle()
+t.speed(0)
+t.hideturtle()
+
+
+
+
+# Function to draw a rectangle
+def rectangle(x, y, width, height, color):
+    t.penup()
+    t.goto(x, y)
+    t.color(color)
+    t.pendown()
+    t.begin_fill()
+
+    t.goto(x + width, y)
+    t.goto(x + width, y + height)
+    t.goto(x, y + height)
+    t.goto(x, y)
+
+    t.end_fill()
+    t.penup()
+
+
+# Function to draw a circle
+def circle(x, y, size, color):
+    t.penup()
+    t.goto(x, y - size)
+    t.color(color)
+    t.pendown()
+    t.begin_fill()
+    t.circle(size)
+    t.end_fill()
+    t.penup()
+
+
+# Function to draw a line
+def line(x1, y1, x2, y2, color, width):
+    t.penup()
+    t.goto(x1, y1)
+    t.pendown()
+    t.color(color)
+    t.pensize(width)
+    t.goto(x2, y2)
+    t.penup()
+    t.pensize(1)
+# Function to draw a triangle
+def triangle(points, color):
+    t.penup()
+    t.goto(points[0])
+    t.color(color)
+    t.pendown()
+    t.begin_fill()
+
+    for point in points[1:]:
+        t.goto(point)
+
+    t.goto(points[0])
+    t.end_fill()
+    t.penup()
+
+
+#  MOON 
+
+circle(300, 230, 55, "#D5D9BD")
+
+# Moon craters
+circle(280, 245, 7, "#A9B49E")
+circle(320, 220, 9, "#A9B49E")
+circle(310, 260, 4, "#A9B49E")
+
+
+#  STARS 
+
+random.seed(10)
+
+# Draw 50 stars in random positions
+for i in range(50):
+    x = random.randint(-420, 420)
+    y = random.randint(100, 320)
+
+    circle(x, y, 2, "#E5E5CE")
+
+# - MOUNTAINS 
+
+# Draw mountains
+triangle([
+    (-450, 50),
+    (-300, 240),
+    (-150, 50)
+], "#35494B")
+
+triangle([
+    (-250, 50),
+    (-70, 280),
+    (100, 50),
+], "#405654")
+
+triangle([
+    (50, 50),
+    (220, 220),
+    (400, 50)
+], "#35494B")
+
+
+
+# - ABANDONED BUILDINGS 
+
+# Draw buildings using a loop
+for i in range(7):
+    x = -430 + i * 125
+    height = random.randint(100, 210)
+
+    rectangle(x, 0, 90, height, "#263637")
+
+    # Draw windows inside each building
+    for j in range(3):
+        for k in range(3):
+            window_x = x + 12 + j * 25
+            window_y = 20 + k * 35
+
+            if window_y < height:
+                rectangle(
+                    window_x,
+                    window_y,
+                    12,
+                    18,
+                    "#111D21"
+                )
+
+
+# - GROUND 
+ 
+
+rectangle(-450, -350, 900, 350, "#26372D")
+
+
+#  ROAD 
+
+# Draw the road
+triangle([
+    (-450, -350),
+    (450, -350),
+    (90, 0),
+    (-90, 0)
+], "#414541")
+
+# Draw yellow road markings
+for i in range(5):
+    y = -40 - i * 55
+    size = 4 + i * 2
+
+    rectangle(
+        -size,
+        y,
+        size * 2,
+        20 + i * 3,
+#  ELLIE 
+
+# Ellie's legs
+line(65, -90, 55, -125, "#111716", 8)
+line(95, -90, 105, -125, "#111716", 8)
+
+# Ellie's red jacket
+rectangle(60, -85, 40, 55, "#793D35")
+
+# Ellie's backpack
+rectangle(95, -65, 12, 35, "#343C35")
+
+# Ellie's arms
+line(62, -35, 48, -65, "#793D35", 7)
+line(98, -35, 110, -65, "#793D35", 7)
+
+# Ellie's head
+circle(80, -18, 13, "#B58D70")
+
+# Ellie's brown hair
+circle(80, -7, 14, "#493327")
+
+# Ellie's ponytail
+circle(98, -15, 8, "#493327")
+
+# Extra hair detail
+line(90, -10, 100, -25, "#493327", 4)
+
+# INFECTED ZOMBIE
+
+# Zombie's legs
+line(170, -90, 160, -125, "#263D25", 9)
+line(200, -90, 210, -125, "#263D25", 9)
+
+# Zombie's body
+rectangle(165, -85, 40, 55, "#456B35")
+# Zombie's arms
+line(165, -35, 145, -65, "#456B35", 8)
+line(205, -35, 225, -65, "#456B35", 8)
+
+# Zombie's green head
+circle(185, -18, 17, "#668F3D")
+
+# Fungus growing on the zombie's head
+circle(172, -5, 9, "#A6A65A")
+circle(185, 3, 11, "#8B9B48")
+circle(198, -5, 9, "#A6A65A")
+
+# Zombie's dark eyes
+circle(178, -17, 3, "#101515")
+circle(191, -17, 3, "#101515")
+
+# Zombie's mouth
+line(178, -27, 192, -27, "#172016", 3)
+
+#
+
+
+# - FIREFLIES LOGO 
+
+# Draw the left wing
+triangle([
+    (-330, 275),
+    (-365, 300),
+    (-345, 265)
+], "#D5D9BD")
+
+# Draw the right wing
+triangle([
+    (-310, 275),
+    (-275, 300),
+    (-295, 265)
+], "#D5D9BD")
+
+# Draw the middle body
+rectangle(-312, 250, 4, 35, "#D5D9BD")
+
+# Draw the bottom of the symbol
+triangle([
+    (-320, 255),
+    (-310, 220),
+    (-300, 255)
+], "#D5D9BD")
+
+# Write Fireflies under the logo
+t.penup()
+t.goto(-310, 205)
+t.color("#D5D9BD")
+t.write(
+    "FIREFLIES",
+    align="center",
+    font=("Arial", 12, "bold")
+)
+
+
+#  TITLE 
+
+t.penup()
+t.goto(0, 320)
+t.color("#E0E0CD")
+
+t.write(
+    "THE LAST OF US",
+    align="center",
+    font=("Arial", 25, "bold")
+)
+
+# Subtitle
+t.goto(0, 290)
+t.color("#A5B2A2")
+
+t.write(
+    "A WORLD TAKEN BACK BY NATURE",
+    align="center",
+    font=("Arial", 10, "normal")
+)
+
+
+
+
+
+screen.update()
+
+turtle.done()
